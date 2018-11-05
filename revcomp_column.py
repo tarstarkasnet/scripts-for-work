@@ -1,23 +1,22 @@
-//This program reads a column of indexes and reverse-complements them but keeps them in the same order
+#This program reads a column of indexes and reverse-complements them but keeps them in the same order
 
-fileToRead = open("D:/pyfiles/revcomp_column.txt","r+")
-fileToWrite = open("D:/pyfiles/revcomp_column_finished.txt","w+")
+fileToRead = open("C:/pycode/scripts-for-work/revcomp_column.txt","r+")  #D:/pyfiles/revcomp_column.txt
+fileToWrite = open("C:/pycode/scripts-for-work/revcomp_column_finished.txt","w+") #D:/pyfiles/revcomp_column_finished.txt
 
+#strip any extra stuff and make a blank list
 content = [line.rstrip() for line in fileToRead]
 contentrc = []
 
+#for the display
 for row in content:
 	print(row)
 	
 
 rowcounter = 0
-	
+
+
 for row in content:
-	line = row.split("-")
-	#print("line " + str(line))
-	#print(line[1])
-	partToList = list(line[1])
-	#print(partToList)
+	partToList = list(row)
 	basecounter = 0
 	for base in partToList:
 		if base == "A":
@@ -30,11 +29,18 @@ for row in content:
 			partToList[basecounter] = "G"
 		basecounter +=1
 	partToList.reverse()
-	partToList2 = "".join(partToList)
-	#print(partToList2)
-	contentrc.append(str(line[0]) + "-" + str(partToList2))
+	contentrc.append("".join(partToList))
 	rowcounter += 1
 
+#for display 
 print("reverse-complemented:")	
 for row in contentrc:
 	print(row)
+
+#write to the text file
+fileToWrite.write("column reverse-complemented:\n")	
+for row in contentrc:
+	fileToWrite.write(row + "\n")
+	
+fileToRead.close()
+fileToWrite.close()
